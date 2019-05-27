@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 @ObjectHolder("leer")
 public class ItemHolder {
 
-	@GameRegistry.ObjectHolder("leer.obsidianshard")
+	@GameRegistry.ObjectHolder("obsidianshard")
 	public static final ItemObsidianShard obsidianshard = null;
 	
 	@GameRegistry.ObjectHolder("trap")

@@ -9,6 +9,6 @@ public class BlockHolder {
 	public static final BlockDrill drill = null;
 	
 	@ObjectHolder("voidcom")
-	public static final BlockDrill voidcom = null;
+	public static final BlockVoidcom voidcom = null;
 	
 }

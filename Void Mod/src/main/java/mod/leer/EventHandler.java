@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 @EventBusSubscriber
 public class EventHandler {
 	private int meteoritetimer = 0;
+	private static float speed = 2;
 	public boolean check=true;
 	private int range=100;
 	
@@ -34,7 +35,7 @@ public class EventHandler {
 				EntityPlayer player = event.world.playerEntities.get(0);
 				double posx = player.getPosition().getX();
 				double posz = player.getPosition().getZ();
-				//Meterorit wird mit random Koordinate in einer range vom Player gespawned.(Random Richtung)
+				//Meteorit wird mit random Koordinate in einer range vom Player gespawned.(Random Richtung)
 				event.world.spawnEntity(new Meteorite(event.world,
 				//X-Koordinate
 				posx+(range-r.nextInt(range*2)),
@@ -43,7 +44,7 @@ public class EventHandler {
 				//Z-Koordinate
 				posz+(range-r.nextInt(range*2)),
 				//Richtung
-				(r.nextFloat()-0.5F)*( r.nextBoolean() ? 1 : -1 ),-r.nextFloat(),(r.nextFloat()-0.5F)*( r.nextBoolean() ? 1 : -1 )));	
+				(speed*(r.nextFloat()-0.5F)*( r.nextBoolean() ? 1 : -1 )),speed*-r.nextFloat(),speed*((r.nextFloat()-0.5F)*( r.nextBoolean() ? 1 : -1 ))));	
 			}
 			meteoritetimer=0;
 		}
