@@ -34,6 +34,7 @@ public class ContainerVoidcom extends Container{
 				else {
 					worldIn.setBlockState(tile.getPos(), worldIn.getBlockState(tile.getPos()).withProperty(BlockVoidcom.FULL,false), 2);
 				}*/}
+			System.out.println(getStack().getUnlocalizedName());
 			tile.markDirty();
 			}
 			
@@ -43,11 +44,8 @@ public class ContainerVoidcom extends Container{
 			}
 			@Override
 			public boolean isItemValid(@Nonnull ItemStack stack) {
-				if(super.isItemValid(stack)) {
-					String name = stack.getUnlocalizedName();
-					if(name.equals("item.trap"))
-						return true;
-				}
+				if(super.isItemValid(stack)) 
+					return true;
 				return false;
 			}
 		});
