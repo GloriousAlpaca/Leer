@@ -33,8 +33,8 @@ public class ContainerVoidcom extends Container{
 				}
 				else {
 					worldIn.setBlockState(tile.getPos(), worldIn.getBlockState(tile.getPos()).withProperty(BlockVoidcom.FULL,false), 2);
-				}*/
-			tile.markDirty();}
+				}*/}
+			tile.markDirty();
 			}
 			
 			@Override
