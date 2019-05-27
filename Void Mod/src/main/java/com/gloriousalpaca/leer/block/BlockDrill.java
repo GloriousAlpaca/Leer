@@ -19,7 +19,7 @@ public class BlockDrill extends BlockTileEntity<TileEntityDrill> {
 	public TileEntityDrill entity;
 	
 	public BlockDrill() {
-		super(Material.IRON, "drill");
+		super(Material.IRON, "leer.drill");
 		this.setDefaultState(this.blockState.getBaseState());
 		setHardness(3f);
 		setResistance(15f);

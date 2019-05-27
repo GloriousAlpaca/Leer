@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class Tester extends ItemBase{
 
 	public Tester() {
-		super("tester");
+		super("leer.tester");
 		// TODO Auto-generated constructor stub
 	}
 	

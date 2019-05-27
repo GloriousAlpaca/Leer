@@ -50,9 +50,6 @@ public class GuiDrill extends GuiContainer{
 		drawTexturedModalRect(x+25,y+20, 0, 166, e, 14);
 		//ProgressBar
 		drawTexturedModalRect(x+25,y+52, 0, 182, p, 14);
-
-
-		
 	}
 	
 	public void setEnergy(int energy) {

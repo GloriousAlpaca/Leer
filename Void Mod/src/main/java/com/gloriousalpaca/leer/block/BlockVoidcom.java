@@ -20,7 +20,7 @@ public class BlockVoidcom extends BlockTileEntity<TileEntityVoidcom> {
 	public static PropertyBool FULL = PropertyBool.create("full");
 	
 	public BlockVoidcom() {
-		super(Material.IRON, "voidcom");
+		super(Material.IRON, "leer.voidcom");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FULL, false));
 		setHardness(3f);
 		setResistance(15f);
