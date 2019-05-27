@@ -1,0 +1,10 @@
+{
+  "meteorite": {
+    "category": "entity",
+    "sounds": [ "leer:meteorite" ]
+  },
+  "laser": {
+    "category": "block",
+    "sounds": [ "leer:laser" ]
+  }
+}

@@ -1,0 +1,16 @@
+[
+{
+  "modid": "leer",
+  "name": "Leer",
+  "description": "Harness the power of the void!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Andreas"],
+  "credits": "Danke an Steven!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
