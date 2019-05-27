@@ -1,25 +1,28 @@
 package com.gloriousalpaca.leer.item;
 
+import com.gloriousalpaca.leer.LEER;
 import com.gloriousalpaca.leer.entities.Meteorite;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Tester extends ItemBase{
+public class ItemTester extends Item{
 
-	public Tester() {
-		super("leer.tester");
-		// TODO Auto-generated constructor stub
+	public ItemTester() {
+		setUnlocalizedName("leer.tester");
+		setRegistryName("tester");
+		setCreativeTab(LEER.CT);
+	}
+	
+	
+	public void registerItemModel() {
+		LEER.proxy.registerItemRenderer(this, 0, "tester");
 	}
 	
 	@Override

@@ -18,7 +18,7 @@ public class MovingSoundMeteorite extends MovingSound
 
     public MovingSoundMeteorite(Meteorite meteoriteIn)
     {
-        super(InitSoundEvents.meteorite, SoundCategory.NEUTRAL);
+        super(SoundEventHolder.meteorite, SoundCategory.NEUTRAL);
         this.meteorite = meteoriteIn;
         this.repeat = true;
         this.repeatDelay = 0;
@@ -38,7 +38,7 @@ public class MovingSoundMeteorite extends MovingSound
             this.xPosF = (float)this.meteorite.posX;
             this.yPosF = (float)this.meteorite.posY;
             this.zPosF = (float)this.meteorite.posZ;
-           /* float f = MathHelper.sqrt(this.meteorite.motionX * this.meteorite.motionX + this.meteorite.motionZ * this.meteorite.motionZ);
+           float f = MathHelper.sqrt(this.meteorite.motionX * this.meteorite.motionX + this.meteorite.motionZ * this.meteorite.motionZ);
 
             if ((double)f >= 0.01D)
             {
@@ -49,7 +49,7 @@ public class MovingSoundMeteorite extends MovingSound
             {
                 this.distance = 0.0F;
                 this.volume = 0.0F;
-            }*/
+            }
         }
     }
 }

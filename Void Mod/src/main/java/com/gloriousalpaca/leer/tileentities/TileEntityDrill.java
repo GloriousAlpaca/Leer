@@ -2,7 +2,7 @@ package com.gloriousalpaca.leer.tileentities;
 
 import javax.annotation.Nullable;
 
-import com.gloriousalpaca.leer.audio.InitSoundEvents;
+import com.gloriousalpaca.leer.audio.SoundEventHolder;
 import com.gloriousalpaca.leer.energy.EnergyBase;
 import com.gloriousalpaca.leer.network.DrillParticleMessage;
 import com.gloriousalpaca.leer.network.PacketHandler;
@@ -10,13 +10,10 @@ import com.gloriousalpaca.leer.network.PacketHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 public class TileEntityDrill extends TileEntity implements ITickable{
@@ -45,11 +42,10 @@ public class TileEntityDrill extends TileEntity implements ITickable{
 			y=this.getPos().getY();
 			z=this.getPos().getZ();
 				int b=0;
-				int c=0;
 				//Kann Bedrock sehen ?
 				boolean test = true;
 				if(!world.isRemote) {
-				world.playSound(null, this.getPos(), InitSoundEvents.laser, null, 1, 1);
+				world.playSound(null, this.getPos(), SoundEventHolder.laser, null, 1, 1);
 				}
 				else {
 					
@@ -130,7 +126,6 @@ public class TileEntityDrill extends TileEntity implements ITickable{
 	}
 	
 	//Get Methoden
-	
 	public int getEnergy() {
 		return energy.getEnergyStored();
 	}

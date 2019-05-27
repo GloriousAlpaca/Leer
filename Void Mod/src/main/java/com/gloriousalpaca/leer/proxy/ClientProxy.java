@@ -13,7 +13,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
-public class ClientProxy extends CommonProxy{
+public class ClientProxy implements IProxy{
 	
 	@Override
 	public void registerItemRenderer(Item item, int meta, String id) {
@@ -28,8 +28,6 @@ public class ClientProxy extends CommonProxy{
 				return new RenderMeteorite(manager,1);
 			}
 		});
-
-
 	}
 	
 }

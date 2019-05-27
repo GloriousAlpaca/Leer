@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.gloriousalpaca.leer.LEER;
 import com.gloriousalpaca.leer.capabilities.CapabilityProvider;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -23,7 +25,7 @@ import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemTrap extends ItemBase{
+public class ItemTrap extends Item{
 	
 	private final ItemStack EMPTY_STACK = new ItemStack(this);
 	private final ItemStack FULL_STACK = new ItemStack(this);
@@ -31,10 +33,16 @@ public class ItemTrap extends ItemBase{
 	int capacity=10000;
 	
 	public ItemTrap() {
-		super("leer.trap");
+		setUnlocalizedName("leer.trap");
+		setRegistryName("trap");
+		setCreativeTab(LEER.CT);
 		setMaxStackSize(1);
 	}
-
+	
+	public void registerItemModel() {
+		LEER.proxy.registerItemRenderer(this, 0, "trap");
+	}
+	
 	@Override
     public void getSubItems(@Nullable final CreativeTabs tab, final NonNullList<ItemStack> subItems) 
     {
@@ -73,6 +81,7 @@ public class ItemTrap extends ItemBase{
 		}
     }
     
+	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
     {
 		NBTTagCompound nbt = new NBTTagCompound();

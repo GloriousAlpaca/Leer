@@ -6,10 +6,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import com.gloriousalpaca.leer.audio.MovingSoundMeteorite;
-import com.gloriousalpaca.leer.item.InitItems;
-
+import com.gloriousalpaca.leer.item.ItemHolder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.ISound;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -39,7 +37,7 @@ public class Meteorite extends Entity{
 		// TODO Auto-generated method stub
 		world.createExplosion(this, this.posX, this.posY, this.posZ, 4F, true);
 		if(!world.isRemote)
-		this.entityDropItem(new ItemStack(InitItems.obsidianshard,1),0);
+		this.entityDropItem(new ItemStack(ItemHolder.obsidianshard,1),0);
 		this.setDead();
 	}
 	

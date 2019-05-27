@@ -1,7 +1,7 @@
 package com.gloriousalpaca.leer.gui;
 
 import com.gloriousalpaca.leer.LEER;
-import com.gloriousalpaca.leer.block.InitBlocks;
+import com.gloriousalpaca.leer.block.BlockHolder;
 import com.gloriousalpaca.leer.network.PacketHandler;
 import com.gloriousalpaca.leer.network.VoidcomMessage;
 import com.gloriousalpaca.leer.tileentities.TileEntityVoidcom;
@@ -53,7 +53,7 @@ public class GuiVoidcom extends GuiContainer{
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		String name = I18n.format(InitBlocks.voidcom.getUnlocalizedName() + ".name");
+		String name = I18n.format(BlockHolder.voidcom.getUnlocalizedName() + ".name");
 		fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 0x404040);
 		fontRenderer.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
 	}
