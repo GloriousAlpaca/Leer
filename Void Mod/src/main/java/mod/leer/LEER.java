@@ -89,9 +89,20 @@ public class LEER {
 	@Mod.EventBusSubscriber
 	public static class RegistrationHandler {
 		
+		@SubscribeEvent
+		public static void registerBlocks(RegistryEvent.Register<Block> event) {
+			BlockDrill drill = new BlockDrill();
+			BlockVoidcom voidcom = new BlockVoidcom();
+			event.getRegistry().registerAll(
+					drill,
+					voidcom
+					);
+			InitTileEntities.register();/*
+			InitFluids.register();*/
+		}
 		
 		@SubscribeEvent
-		public void registerItems(RegistryEvent.Register<Item> event) {
+		public static void registerItems(RegistryEvent.Register<Item> event) {
 			ItemObsidianShard obsidianshard = new ItemObsidianShard();
 			ItemTrap trap = new ItemTrap();
 			ItemTester tester = new ItemTester();
@@ -112,9 +123,19 @@ public class LEER {
 		}
 		
 		@SubscribeEvent
-		public void registerModels(ModelRegistryEvent event) {
-			BlockHolder.drill.registerItemModel(Item.getItemFromBlock(BlockHolder.drill));
-			BlockHolder.voidcom.registerItemModel(Item.getItemFromBlock(BlockHolder.voidcom));
+		public static void registerSoundEvents(RegistryEvent.Register<SoundEvent> event) {
+			SoundEvent meteorite = new SoundEvent(new ResourceLocation("leer","meteorite"));
+			SoundEvent laser = new SoundEvent(new ResourceLocation("leer","laser"));
+		    event.getRegistry().registerAll(
+		    		meteorite,
+		    		laser
+		    		);
+		}
+		
+		@SubscribeEvent
+		public static void registerModels(ModelRegistryEvent event) {
+			LEER.proxy.registerItemRenderer(BlockHolder.itemdrill, 0, "drill");
+			LEER.proxy.registerItemRenderer(BlockHolder.itemvoidcom, 0, "voidcom");
 			ItemObsidianShard obsidianshard = ItemHolder.obsidianshard;
 			ItemTrap trap = ItemHolder.trap;
 			ItemTester tester = ItemHolder.tester;
@@ -122,27 +143,5 @@ public class LEER {
 			trap.registerItemModel();
 			tester.registerItemModel();
 		}
-		
-		@SubscribeEvent
-		public static void registerBlocks(RegistryEvent.Register<Block> event) {
-			BlockDrill drill = new BlockDrill();
-			BlockVoidcom voidcom = new BlockVoidcom();
-			event.getRegistry().registerAll(
-					drill,
-					voidcom
-					);
-			InitTileEntities.register();/*
-			InitFluids.register();*/
-		}
-		
-		@SubscribeEvent
-		public void registerSoundEvents(RegistryEvent.Register<SoundEvent> event) {
-			SoundEvent meteorite = new SoundEvent(new ResourceLocation("leer", "meteorite"));
-			SoundEvent laser = new SoundEvent(new ResourceLocation("leer", "laser"));
-		    event.getRegistry().register(meteorite);
-		    event.getRegistry().register(laser);
-		}
-		
-		
 	}
 }
