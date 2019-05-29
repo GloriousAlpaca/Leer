@@ -63,7 +63,7 @@ public class ItemTrap extends Item{
 			timer++;
 			timer%=10;
 			if(timer==0 && stack.hasCapability(CapabilityEnergy.ENERGY,null) && stack.hasTagCompound()) {
-				if(stack.getTagCompound().getBoolean("full")) {
+				if(stack.getTagCompound().getInteger("void")==100) {
 					EnergyStorage energy = (EnergyStorage) stack.getCapability(CapabilityEnergy.ENERGY,null);
 					if(energy.extractEnergy(100,true)>=100) {
 						energy.extractEnergy(100,false);
@@ -84,7 +84,7 @@ public class ItemTrap extends Item{
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
     {
 		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setBoolean("full",false);
+		nbt.setInteger("void",0);
     }
 	
 	@Override
@@ -95,24 +95,11 @@ public class ItemTrap extends Item{
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
-		ItemStack stack = playerIn.getHeldItem(handIn);
-		NBTTagCompound nbt;
-		if(playerIn.getHeldItem(handIn) == null)
-		return ActionResult.newResult(EnumActionResult.FAIL, null);
-		if(stack.hasTagCompound()) {
-			nbt = stack.getTagCompound();
-				if(stack.getTagCompound().hasKey("full") && nbt.getBoolean("full")) {
-					nbt.setBoolean("full",false);
-				}
-				else {
-					nbt.setBoolean("full",true);
-				}
-		}
-		else {
-			nbt = new NBTTagCompound();
-			nbt.setBoolean("full",true);
-		}
-		stack.setTagCompound(nbt);
+		ItemStack stack = playerIn.getHeldItem(handIn).copy();
+		NBTTagCompound nbt = stack.getTagCompound();
+		int status = nbt.getInteger("void")+10;
+		status %=110;
+		nbt.setInteger("void",status);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 	
@@ -127,31 +114,23 @@ public class ItemTrap extends Item{
     @Override
     public double getDurabilityForDisplay(ItemStack stack)
     {
-    	if(stack.hasCapability(CapabilityEnergy.ENERGY,null)) {
     	EnergyStorage stackenergy = (EnergyStorage) stack.getCapability(CapabilityEnergy.ENERGY,null);
     	double e = stackenergy.getEnergyStored();
     	return 1.0-((double)(e / (double)capacity));
-    	}
-    	return 1.0;
-    	
     }
     
 	@Override
 	@SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack)
     {
-        if(stack.hasTagCompound()) {
-        	if(stack.getTagCompound().hasKey("full"))
-        		return stack.getTagCompound().getBoolean("full");}
+        if(stack.getTagCompound().getInteger("void")==100)
+        	return true;
         return false;
     }
 	
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		if(stack.getTagCompound().getBoolean("full"))
-			tooltip.add("Full");
-		else
-			tooltip.add("Empty");
+		tooltip.add("Void: "+stack.getTagCompound().getInteger("void"));
 		tooltip.add("Energy: "+stack.getCapability(CapabilityEnergy.ENERGY,null).getEnergyStored());
 	}
 

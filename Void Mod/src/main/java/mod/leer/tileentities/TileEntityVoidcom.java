@@ -16,10 +16,8 @@ import net.minecraftforge.items.ItemStackHandler;
 public class TileEntityVoidcom extends TileEntity implements ITickable{
 		
 	public EnergyBase energy = new EnergyBase(50000);
-	private ItemStackHandler inventory = new ItemStackHandler(1);
-	private boolean test = true;
+	public ItemStackHandler inventory = new ItemStackHandler(1);
 	public int max=100;
-	public int progress=0;
 	
 	public TileEntityVoidcom(){
 		
@@ -27,48 +25,44 @@ public class TileEntityVoidcom extends TileEntity implements ITickable{
 	
 	@Override
 	public void update() {
+		//Server Side
 		if(!world.isRemote) {
 			ItemStack stack = inventory.getStackInSlot(0);
+			//Charge Item in Slot 0
 			if(stack != null) {
 				if(stack.hasCapability(CapabilityEnergy.ENERGY,null))
 					if(stack.getCapability(CapabilityEnergy.ENERGY,null).receiveEnergy(1000,true)>=1000 && energy.extractEnergy(25000,true)>=25000) {
 						stack.getCapability(CapabilityEnergy.ENERGY,null).receiveEnergy(1000,false);
 						energy.extractEnergy(1000,false);
 					}
-				if(stack.getUnlocalizedName().equals("item.trap")&&(!stack.hasTagCompound()||!(stack.getTagCompound().getBoolean("full")))) {
-			//Sichtcheck
-			for(int i=1;i<(pos.getY()+1)&&test;i++) {
-				if(world.isAirBlock(pos.down(i)))
-					test=true;
-				else
-					test=false;
-			}
-			//Falls Sicht besteht
-			if(test) {
-				if(energy.extractEnergy(25000,true)>=25000) {
-				progress+=1;
-				energy.extractEnergy(25000,false);
-				}
-						if(progress>=max){
-							NBTTagCompound nbt;
-							if(stack.hasTagCompound()) {
-								nbt = stack.getTagCompound();
-								nbt.setBoolean("full",true);
-							}
-							else {
-								nbt = new NBTTagCompound();
-								nbt.setBoolean("full",true);
-							}
-							stack.setTagCompound(nbt);
-						progress=0;
-						}
-					
+				
+				//Is the trap empty ?
+				if(!stack.hasTagCompound()||stack.getTagCompound().getInteger("void")!=100) {
+					boolean test=true;
+					//Sichtcheck
+					for(int i=1;i<(pos.getY()+1)&&test;i++) {
+						if(world.isAirBlock(pos.down(i)))
+							test=true;
+						else
+							test=false;
 					}
+			
+				//Falls Sicht besteht
+				if(test) {
+					//Increase Progress by 1 and remove Energy
+					if(energy.extractEnergy(25000,true)>=25000) {
+							ItemStack newstack = stack.copy();
+							NBTTagCompound nbt = newstack.getTagCompound();
+							int status = nbt.getInteger("void");
+							nbt.setInteger("void",status+1);
+							energy.extractEnergy(25000,false);
+							inventory.extractItem(0,1,false);
+							inventory.insertItem(0,newstack,false);
+					}
+				}
 				}
 			}
 		}
-		
-		test=true;
 	}
 	
 	@Override

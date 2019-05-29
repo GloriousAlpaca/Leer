@@ -4,7 +4,10 @@ import java.lang.reflect.Field;
 
 
 import io.netty.buffer.ByteBuf;
+import mod.leer.gui.GuiVoidcom;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.play.server.SPacketChat;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -57,14 +60,15 @@ public class VoidcomReturnMessage implements IMessage{
 				if(!message.valid && ctx.side != Side.CLIENT)
 				return null;
 			Minecraft.getMinecraft().addScheduledTask(() -> processMessage(message,ctx));
-			return null;
+			return message;
 		}
 		
 		public void processMessage(VoidcomReturnMessage message, MessageContext ctx) {
 			try {
-				Class<?> clazz = Class.forName(this.className);
+				Class clazz = Class.forName(this.className);
 				Field energyField = clazz.getDeclaredField(this.energyFieldName);
 				Field progressField = clazz.getDeclaredField(this.progressFieldName);
+				
 				progressField.setInt(clazz,message.progress);
 				energyField.setInt(clazz,message.energy);
 			} catch(Exception e) {

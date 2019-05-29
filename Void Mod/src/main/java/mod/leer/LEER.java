@@ -1,6 +1,11 @@
 package mod.leer;
 
 
+
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import mod.leer.block.BlockDrill;
 import mod.leer.block.BlockHolder;
 import mod.leer.block.BlockVoidcom;
@@ -41,7 +46,7 @@ public class LEER {
     public static final String DESCRIPTION = "Harness the power of the void";
     public static final String AUTHOR = "gloriousalpaca";
     public static final String VERSION = "1.0";
-    
+    public static final Logger LOG = LogManager.getLogger(MODID);
     
     /*Proxy*/
     @SidedProxy(serverSide = "mod.leer.proxy.ServerProxy", clientSide = "mod.leer.proxy.ClientProxy")
@@ -68,7 +73,7 @@ public class LEER {
     
     @Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		System.out.println(NAME + " pre-initialization");
+    	LOG.info(NAME + " pre-initialization");
 		proxy.registerEntityRenderer();
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
 		PacketHandler.registerMessages(MODID);
@@ -83,7 +88,7 @@ public class LEER {
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		System.out.println(NAME + " is done!");
+		LOG.info(NAME + " is done!");
 	}
 	
 	@Mod.EventBusSubscriber
@@ -94,7 +99,7 @@ public class LEER {
 			BlockDrill drill = new BlockDrill();
 			BlockVoidcom voidcom = new BlockVoidcom();
 			event.getRegistry().registerAll(
-					drill,
+					drill,	
 					voidcom
 					);
 			InitTileEntities.register();/*

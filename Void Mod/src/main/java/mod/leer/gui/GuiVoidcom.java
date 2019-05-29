@@ -30,6 +30,7 @@ public class GuiVoidcom extends GuiContainer{
 		PacketHandler.INSTANCE.sendToServer(new VoidcomMessage(tile.getPos()));
 		GlStateManager.color(1, 1, 1, 1);
 		mc.getTextureManager().bindTexture(BG_TEXTURE);
+		//System.out.println("ENERGY: "+energy+"PROGRESS: "+progress);
 		int p = (int)(126*((float)progress/tile.max));
 		int e = (int)(62*((float)energy/tile.energy.getMaxEnergyStored()));
 		int x = (width - xSize) / 2;
