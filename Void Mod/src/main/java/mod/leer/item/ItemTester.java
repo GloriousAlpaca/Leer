@@ -1,7 +1,12 @@
 package mod.leer.item;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import mod.leer.LEER;
 import mod.leer.entities.Meteorite;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,7 +17,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class ItemTester extends Item{
-
 	public ItemTester() {
 		setUnlocalizedName("leer.tester");
 		setRegistryName("tester");
@@ -32,7 +36,7 @@ public class ItemTester extends Item{
 		double posy = playerIn.getPosition().getY();
 		double posz = playerIn.getPosition().getZ();
 		Vec3d vector = playerIn.getLookVec();
-		//Meterorit wird mit random Koordinate in einer range vom Player gespawned.(Random Richtung)
+
 		worldIn.spawnEntity(new Meteorite(worldIn,
 		//X-Koordinate
 		posx+vector.x,
@@ -41,9 +45,7 @@ public class ItemTester extends Item{
 		//Z-Koordinate
 		posz+vector.z,
 		//Richtung
-		vector.x*2,vector.y*2,vector.z*2));
-        return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
-		}
+		vector.x*2,vector.y*2,vector.z*2));}
 		return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
 	

@@ -27,7 +27,6 @@ public class TileEntityVoidcom extends TileEntity implements ITickable{
 	
 	@Override
 	public void update() {
-		
 		if(!world.isRemote) {
 			ItemStack stack = inventory.getStackInSlot(0);
 			if(stack != null) {

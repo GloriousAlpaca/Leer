@@ -9,11 +9,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 
 public class Sprites {
-	public static TextureAtlasSprite asteroid;
+	public static TextureAtlasSprite meteorite;
 	
 	
 	public static void register(TextureStitchEvent.Pre event){
-        asteroid = event.getMap().registerSprite(new ResourceLocation(LEER.MODID+":entity/asteroidprojectile"));
+        meteorite = event.getMap().registerSprite(new ResourceLocation(LEER.MODID+":entity/meteoriteprojectile"));
     }
 	
 }

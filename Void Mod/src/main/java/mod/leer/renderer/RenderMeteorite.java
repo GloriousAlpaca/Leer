@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderMeteorite extends Render<Meteorite>{
 	
-	protected ResourceLocation asteroidTexture;
+	protected ResourceLocation meteoriteTexture;
 	private final float scale;
 	
 	public RenderMeteorite(RenderManager renderManager,float scaleIn) {
@@ -26,7 +26,7 @@ public class RenderMeteorite extends Render<Meteorite>{
 
 	protected void setEntityTexture()
     {
-        asteroidTexture = new ResourceLocation(LEER.MODID+":textures/entity/asteroidprojectile.png");
+        meteoriteTexture = new ResourceLocation(LEER.MODID+":textures/entity/meteoriteprojectile.png");
     }
 
 
@@ -37,7 +37,7 @@ public class RenderMeteorite extends Render<Meteorite>{
         GlStateManager.translate((float)x, (float)y, (float)z);
         GlStateManager.enableRescaleNormal();
         GlStateManager.scale(this.scale, this.scale, this.scale);
-        TextureAtlasSprite textureatlassprite = Sprites.asteroid;
+        TextureAtlasSprite textureatlassprite = Sprites.meteorite;
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         float f = textureatlassprite.getMinU();
@@ -76,7 +76,7 @@ public class RenderMeteorite extends Render<Meteorite>{
     
 	@Override
 	protected ResourceLocation getEntityTexture(Meteorite entity) {
-		return asteroidTexture;
+		return meteoriteTexture;
 	}
 
 }

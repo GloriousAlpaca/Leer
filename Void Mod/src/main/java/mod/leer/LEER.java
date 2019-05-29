@@ -126,6 +126,8 @@ public class LEER {
 		public static void registerSoundEvents(RegistryEvent.Register<SoundEvent> event) {
 			SoundEvent meteorite = new SoundEvent(new ResourceLocation("leer","meteorite"));
 			SoundEvent laser = new SoundEvent(new ResourceLocation("leer","laser"));
+			meteorite.setRegistryName("meteorite");
+			laser.setRegistryName("laser");
 		    event.getRegistry().registerAll(
 		    		meteorite,
 		    		laser

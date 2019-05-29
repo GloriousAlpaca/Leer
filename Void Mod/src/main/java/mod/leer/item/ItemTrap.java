@@ -140,9 +140,9 @@ public class ItemTrap extends Item{
 	@SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack)
     {
-        if(stack.hasTagCompound())
+        if(stack.hasTagCompound()) {
         	if(stack.getTagCompound().hasKey("full"))
-        		return stack.getTagCompound().getBoolean("full");
+        		return stack.getTagCompound().getBoolean("full");}
         return false;
     }
 	

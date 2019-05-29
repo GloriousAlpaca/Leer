@@ -3,6 +3,7 @@ package mod.leer.container;
 import javax.annotation.Nonnull;
 
 import mod.leer.block.BlockVoidcom;
+import mod.leer.item.ItemTrap;
 import mod.leer.tileentities.TileEntityVoidcom;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -26,14 +27,6 @@ public class ContainerVoidcom extends Container{
 		addSlotToContainer(new SlotItemHandler(inventory,0,80,20) {
 			@Override
 			public void onSlotChanged(){
-			if(!worldIn.isRemote) {
-				/*if(getStack().getUnlocalizedName().equals("item.trap")) {
-					worldIn.setBlockState(tile.getPos(), worldIn.getBlockState(tile.getPos()).withProperty(BlockVoidcom.FULL,true), 2);
-				}
-				else {
-					worldIn.setBlockState(tile.getPos(), worldIn.getBlockState(tile.getPos()).withProperty(BlockVoidcom.FULL,false), 2);
-				}*/}
-			System.out.println(getStack().getUnlocalizedName());
 			tile.markDirty();
 			}
 			
@@ -41,9 +34,10 @@ public class ContainerVoidcom extends Container{
 			public int getSlotStackLimit(){
 				return 1;
 			}
+			
 			@Override
 			public boolean isItemValid(@Nonnull ItemStack stack) {
-				if(super.isItemValid(stack)) 
+				if(stack.getItem() instanceof ItemTrap)
 					return true;
 				return false;
 			}
