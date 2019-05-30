@@ -16,8 +16,8 @@ public class GuiVoidcom extends GuiContainer{
 	private InventoryPlayer playerInv;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(LEER.MODID, "textures/guis/gui_voidcom.png");
 	private TileEntityVoidcom tile = null;
-	public int energy = 0;
-	public int progress = 0;
+	public static int energy = 0;
+	public static int progress = 0;
 	
 	public GuiVoidcom(Container container,InventoryPlayer playerInv, TileEntityVoidcom ptile) {
 		super(container);
@@ -57,5 +57,12 @@ public class GuiVoidcom extends GuiContainer{
 		fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 0x404040);
 		fontRenderer.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
 	}
-
+	
+	public static void setEnergy(int p){
+		energy = p;
+	}
+	
+	public static void setProgress(int p){
+		progress = p;
+	}
 }

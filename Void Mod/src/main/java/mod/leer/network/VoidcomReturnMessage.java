@@ -50,27 +50,19 @@ public class VoidcomReturnMessage implements IMessage{
 	}
 	
 	public static class Handler implements IMessageHandler<VoidcomReturnMessage, IMessage>{
-		
-		private String className = "mod.leer.gui.GuiVoidcom";
-		private String energyFieldName = "energy";
-		private String progressFieldName = "progress";
-		
+
 		@Override
 		public IMessage onMessage(VoidcomReturnMessage message, MessageContext ctx) {
 				if(!message.valid && ctx.side != Side.CLIENT)
 				return null;
 			Minecraft.getMinecraft().addScheduledTask(() -> processMessage(message,ctx));
-			return message;
+			return null;
 		}
 		
 		public void processMessage(VoidcomReturnMessage message, MessageContext ctx) {
 			try {
-				Class clazz = Class.forName(this.className);
-				Field energyField = clazz.getDeclaredField(this.energyFieldName);
-				Field progressField = clazz.getDeclaredField(this.progressFieldName);
-				
-				progressField.setInt(clazz,message.progress);
-				energyField.setInt(clazz,message.energy);
+				GuiVoidcom.setEnergy(message.energy);
+				GuiVoidcom.setProgress(message.progress);
 			} catch(Exception e) {
 				
 			}

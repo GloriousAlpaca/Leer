@@ -51,13 +51,12 @@ public class TileEntityVoidcom extends TileEntity implements ITickable{
 				if(test) {
 					//Increase Progress by 1 and remove Energy
 					if(energy.extractEnergy(25000,true)>=25000) {
-							ItemStack newstack = stack.copy();
+							ItemStack newstack = inventory.extractItem(0,1,false);
 							NBTTagCompound nbt = newstack.getTagCompound();
 							int status = nbt.getInteger("void");
 							nbt.setInteger("void",status+1);
-							energy.extractEnergy(25000,false);
-							inventory.extractItem(0,1,false);
 							inventory.insertItem(0,newstack,false);
+							energy.extractEnergy(25000,false);
 					}
 				}
 				}
