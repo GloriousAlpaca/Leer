@@ -47,11 +47,11 @@ public class ItemTrap extends Item{
     {
         if (!this.isInCreativeTab(tab)) return;
         NBTTagCompound nbt1 = new NBTTagCompound();
-        nbt1.setBoolean("full", false);
+        nbt1.setInteger("void", 0);
         EMPTY_STACK.setTagCompound(nbt1);
         subItems.add(EMPTY_STACK);
         NBTTagCompound nbt2 = new NBTTagCompound();
-        nbt2.setBoolean("full",true);
+        nbt2.setInteger("void", 100);
         FULL_STACK.setTagCompound(nbt2);
         subItems.add(FULL_STACK);
     }

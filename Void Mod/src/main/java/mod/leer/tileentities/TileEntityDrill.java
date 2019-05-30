@@ -73,7 +73,6 @@ public class TileEntityDrill extends TileEntity implements ITickable{
 				if(progress>=max) {
 				world.createExplosion(null,x,y-b,z,4f,true);
 				world.destroyBlock(new BlockPos(x,y-b,z),false);
-					progress=0;
 				}
 				energy.extractEnergy(10000,false);
 

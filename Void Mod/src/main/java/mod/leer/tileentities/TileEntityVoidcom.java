@@ -37,7 +37,7 @@ public class TileEntityVoidcom extends TileEntity implements ITickable{
 					}
 				
 				//Is the trap empty ?
-				if(!stack.hasTagCompound()||stack.getTagCompound().getInteger("void")!=100) {
+				if(!stack.hasTagCompound()||!(stack.getTagCompound().getInteger("void")>=100)) {
 					boolean test=true;
 					//Sichtcheck
 					for(int i=1;i<(pos.getY()+1)&&test;i++) {
@@ -50,11 +50,12 @@ public class TileEntityVoidcom extends TileEntity implements ITickable{
 				//Falls Sicht besteht
 				if(test) {
 					//Increase Progress by 1 and remove Energy
-					if(energy.extractEnergy(25000,true)>=25000) {
+					if(energy.extractEnergy(25000,true)>=25000 && inventory.extractItem(0,1,true).getCount()>=1) {
 							ItemStack newstack = inventory.extractItem(0,1,false);
 							NBTTagCompound nbt = newstack.getTagCompound();
 							int status = nbt.getInteger("void");
 							nbt.setInteger("void",status+1);
+							newstack.setTagCompound(nbt);
 							inventory.insertItem(0,newstack,false);
 							energy.extractEnergy(25000,false);
 					}
