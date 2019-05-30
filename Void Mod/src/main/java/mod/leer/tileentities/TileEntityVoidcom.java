@@ -49,7 +49,7 @@ public class TileEntityVoidcom extends TileEntity implements ITickable{
 			
 				//Falls Sicht besteht
 				if(test) {
-					//Increase Progress by 1 and remove Energy
+					//Increase Void by 1 and remove Energy
 					if(energy.extractEnergy(25000,true)>=25000 && inventory.extractItem(0,1,true).getCount()>=1) {
 							ItemStack newstack = inventory.extractItem(0,1,false);
 							NBTTagCompound nbt = newstack.getTagCompound();

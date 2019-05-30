@@ -133,6 +133,5 @@ public class ItemTrap extends Item{
 		tooltip.add("Void: "+stack.getTagCompound().getInteger("void"));
 		tooltip.add("Energy: "+stack.getCapability(CapabilityEnergy.ENERGY,null).getEnergyStored());
 	}
-
 	
 }
