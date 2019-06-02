@@ -29,8 +29,8 @@ public class RenderVoidcom extends FastTESR<TileEntityVoidcom>{
 		 }
 		 	if(te.anim!=0) {
 			int licht = getWorld().getCombinedLight(new BlockPos(x+0.25,y-0.5,z+0.75), 1);
-	        int l1 = licht % 65536;
-	        int l2 = licht / 65536;
+	        int l1 = licht >> 16 & 65535;
+	        int l2 = licht & 65535;
 		 	//Quadrat Unten
 			buffer.pos(x+0.25,y-te.anim+1,z+0.75).color(1f, 1f, 1f, 1f).tex((umax-umin)*0D/64D+umin,(vmax-vmin)*32D/64D +vmin).lightmap(l1, l2).endVertex();
 			buffer.pos(x+0.25,y-te.anim+1,z+0.25).color(1f, 1f, 1f, 1f).tex((umax-umin)*0D/64D+umin,(vmax-vmin)*16D/64D +vmin).lightmap(l1, l2).endVertex();
@@ -41,10 +41,9 @@ public class RenderVoidcom extends FastTESR<TileEntityVoidcom>{
 	
 	public void renderSegment(double x, double y, double z, BufferBuilder buffer){
 		
-		int north = getWorld().getCombinedLight(new BlockPos(x,y,z).add(0,0,1), 1);
-        int n1 = north & 65535;
-        int n2 = north / 65536;
-        OpenGlHelper.setLightmapTextureCoords (OpenGlHelper.lightmapTexUnit, (float) n1, (float) n2);
+		int north = getWorld().getCombinedLight(new BlockPos(x,y,z), 1);
+        int n1 = north >> 16 & 65535;
+        int n2 = north & 65535;
         
         int south = getWorld().getCombinedLight(new BlockPos(x,y,z), 1);
         int s1 = south >> 16 & 65535;
