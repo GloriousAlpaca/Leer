@@ -9,6 +9,9 @@ import org.apache.logging.log4j.Logger;
 import mod.leer.block.BlockDrill;
 import mod.leer.block.BlockHolder;
 import mod.leer.block.BlockVoidcom;
+import mod.leer.capabilities.ILeer;
+import mod.leer.capabilities.VoidFactory;
+import mod.leer.capabilities.VoidStorage;
 import mod.leer.entities.InitEntities;
 import mod.leer.gui.GuiHandler;
 import mod.leer.item.ItemHolder;
@@ -26,6 +29,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -64,10 +70,11 @@ public class LEER {
     
     /*Tool Materials*/
     
+    /*Capabilities*/
+    @CapabilityInject(ILeer.class)
+    public static final Capability<ILeer> VOID_CAPABILITY = null;
     
     /*Initializers*/
-
-    
     @Mod.Instance(MODID)
     public static LEER instance;
     
@@ -78,6 +85,7 @@ public class LEER {
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
 		PacketHandler.registerMessages(MODID);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+		CapabilityManager.INSTANCE.register(ILeer.class,new VoidStorage(), new VoidFactory());
 	}
     
     @Mod.EventHandler
@@ -102,8 +110,11 @@ public class LEER {
 					drill,	
 					voidcom
 					);
-			InitTileEntities.register();/*
+			InitTileEntities.register();
+			LEER.proxy.registerTileEntitySpecialRenderer();
+			/*
 			InitFluids.register();*/
+			
 		}
 		
 		@SubscribeEvent

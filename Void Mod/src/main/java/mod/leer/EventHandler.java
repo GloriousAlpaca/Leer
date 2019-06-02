@@ -21,7 +21,8 @@ public class EventHandler {
 	
 	@SubscribeEvent
     public void registerSprite(TextureStitchEvent.Pre event){
-		Sprites.register(event);
+		LEER.proxy.registerSprites(event);
+		
 	}
 	
 	@SubscribeEvent

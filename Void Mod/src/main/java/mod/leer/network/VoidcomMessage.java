@@ -3,6 +3,7 @@ package mod.leer.network;
 
 
 import io.netty.buffer.ByteBuf;
+import mod.leer.LEER;
 import mod.leer.tileentities.TileEntityVoidcom;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -65,7 +66,7 @@ public class VoidcomMessage implements IMessage{
 				if(te instanceof TileEntityVoidcom) {
 					TileEntityVoidcom el = (TileEntityVoidcom)te;
 					ItemStack stack = el.inventory.getStackInSlot(0);
-					int status = (stack.hasTagCompound()) ? stack.getTagCompound().getInteger("void") : 0;
+					int status = stack.getCapability(LEER.VOID_CAPABILITY, null).getVoid();
 				PacketHandler.INSTANCE.sendTo(new VoidcomReturnMessage(el.energy.getEnergyStored(),status),ctx.getServerHandler().player);
 				}
 			}

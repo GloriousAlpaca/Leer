@@ -5,7 +5,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import mod.leer.LEER;
-import mod.leer.capabilities.CapabilityProvider;
+import mod.leer.capabilities.ILeer;
+import mod.leer.capabilities.TrapProvider;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -21,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -28,8 +30,7 @@ public class ItemTrap extends Item{
 	
 	private final ItemStack EMPTY_STACK = new ItemStack(this);
 	private final ItemStack FULL_STACK = new ItemStack(this);
-	int timer=0;
-	int capacity=10000;
+	int step = 1000;
 	
 	public ItemTrap() {
 		setUnlocalizedName("leer.trap");
@@ -46,31 +47,28 @@ public class ItemTrap extends Item{
     public void getSubItems(@Nullable final CreativeTabs tab, final NonNullList<ItemStack> subItems) 
     {
         if (!this.isInCreativeTab(tab)) return;
-        NBTTagCompound nbt1 = new NBTTagCompound();
-        nbt1.setInteger("void", 0);
-        EMPTY_STACK.setTagCompound(nbt1);
         subItems.add(EMPTY_STACK);
-        NBTTagCompound nbt2 = new NBTTagCompound();
-        nbt2.setInteger("void", 100);
-        FULL_STACK.setTagCompound(nbt2);
+        FULL_STACK.getCapability(LEER.VOID_CAPABILITY, null).setVoid(100);
+        IEnergyStorage energy = FULL_STACK.getCapability(CapabilityEnergy.ENERGY, null);
+        energy.receiveEnergy(energy.getMaxEnergyStored(),false);
         subItems.add(FULL_STACK);
     }
 	
 	@Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
     {
+		ILeer capability = stack.getCapability(LEER.VOID_CAPABILITY, null);
 		if(!worldIn.isRemote) {
-			timer++;
-			timer%=10;
-			if(timer==0 && stack.hasCapability(CapabilityEnergy.ENERGY,null) && stack.hasTagCompound()) {
-				if(stack.getTagCompound().getInteger("void")==100) {
+			capability.increaseTime();
+			if(capability.getTime()==capability.getTimerMax() && stack.hasCapability(CapabilityEnergy.ENERGY,null)) {
+				if(capability.getVoid()==100) {
 					EnergyStorage energy = (EnergyStorage) stack.getCapability(CapabilityEnergy.ENERGY,null);
-					if(energy.extractEnergy(100,true)>=100) {
-						energy.extractEnergy(100,false);
+					if(energy.extractEnergy(step,true)>=step) {
+						energy.extractEnergy(step,false);
 						
 					}
 					else {
-						worldIn.createExplosion(entityIn, entityIn.posX, entityIn.posY, entityIn.posZ, 10, false);
+						worldIn.createExplosion(null, entityIn.posX, entityIn.posY, entityIn.posZ, 10f, false);
 						stack.shrink(1);
 					}
 				}
@@ -79,28 +77,37 @@ public class ItemTrap extends Item{
 		if(worldIn.isRemote) {
 		}
     }
-    
-	@Override
-	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
-    {
-		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setInteger("void",0);
-    }
 	
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new CapabilityProvider<>(new EnergyStorage(capacity), CapabilityEnergy.ENERGY, null);
+		return new TrapProvider();
 	}	
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
 		ItemStack stack = playerIn.getHeldItem(handIn).copy();
-		NBTTagCompound nbt = stack.getTagCompound();
-		int status = nbt.getInteger("void")+10;
-		status %=110;
-		nbt.setInteger("void",status);
+		ILeer capability = stack.getCapability(LEER.VOID_CAPABILITY, null);
+		if(capability.receiveVoid(10,true)>=10)
+		capability.receiveVoid(10,false);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+	}
+	
+	@Override
+	 public NBTTagCompound getNBTShareTag(ItemStack stack)
+	 {
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setInteger("Void",stack.getCapability(LEER.VOID_CAPABILITY, null).getVoid());
+		nbt.setInteger("Energy",stack.getCapability(CapabilityEnergy.ENERGY,null).getEnergyStored());
+	    return nbt;
+	 }
+	
+	@Override
+	public void readNBTShareTag(ItemStack stack, @Nullable NBTTagCompound nbt){
+		stack.getCapability(LEER.VOID_CAPABILITY, null).setVoid(nbt.getInteger("Void"));
+	    IEnergyStorage energy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		energy.extractEnergy(energy.getEnergyStored(),false);
+		energy.receiveEnergy(nbt.getInteger("Energy"),false);
 	}
 	
 //Visuelles------------------------------------------------------------------------------------
@@ -116,21 +123,21 @@ public class ItemTrap extends Item{
     {
     	EnergyStorage stackenergy = (EnergyStorage) stack.getCapability(CapabilityEnergy.ENERGY,null);
     	double e = stackenergy.getEnergyStored();
-    	return 1.0-((double)(e / (double)capacity));
+    	return 1.0-((double)(e / (double)stackenergy.getMaxEnergyStored()));
     }
     
 	@Override
 	@SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack)
     {
-        if(stack.getTagCompound().getInteger("void")==100)
+        if(stack.getCapability(LEER.VOID_CAPABILITY, null).getVoid()==100)
         	return true;
         return false;
     }
 	
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("Void: "+stack.getTagCompound().getInteger("void"));
+		tooltip.add("Void: "+(stack.getCapability(LEER.VOID_CAPABILITY, null).getVoid()));
 		tooltip.add("Energy: "+stack.getCapability(CapabilityEnergy.ENERGY,null).getEnergyStored());
 	}
 	

@@ -65,7 +65,7 @@ public class DrillParticleMessage implements IMessage{
 		
 		public void processMessage(DrillParticleMessage message, MessageContext ctx) {
 			try {
-				SPacketParticles particle = new SPacketParticles(EnumParticleTypes.SMOKE_NORMAL,false,message.posx,message.posy,message.posz,-0.5f,0f,-0.5f,0.07f,10);
+				SPacketParticles particle = new SPacketParticles(EnumParticleTypes.SMOKE_NORMAL,false,message.posx,message.posy,message.posz,0f,0f,0f,0.01f,10);
 				ctx.getClientHandler().handleParticles(particle);
 			} catch(Exception e) {
 				

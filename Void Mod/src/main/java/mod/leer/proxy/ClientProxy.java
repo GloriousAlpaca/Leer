@@ -4,11 +4,17 @@ package mod.leer.proxy;
 import mod.leer.LEER;
 import mod.leer.entities.Meteorite;
 import mod.leer.renderer.RenderMeteorite;
+import mod.leer.renderer.RenderVoidcom;
+import mod.leer.renderer.Sprites;
+import mod.leer.tileentities.TileEntityVoidcom;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
@@ -28,5 +34,15 @@ public class ClientProxy implements IProxy{
 			}
 		});
 	}
+
+	@Override
+	public void registerTileEntitySpecialRenderer() {
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityVoidcom.class, new RenderVoidcom());
+	}
 	
+	@Override
+	public void registerSprites(TextureStitchEvent.Pre event) {
+		Sprites.register(event);
+	}
+
 }
