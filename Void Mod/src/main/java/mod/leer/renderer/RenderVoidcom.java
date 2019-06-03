@@ -4,7 +4,6 @@ package mod.leer.renderer;
 
 import mod.leer.tileentities.TileEntityVoidcom;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.animation.FastTESR;
 import net.minecraftforge.fml.relauncher.Side;
