@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import mod.leer.LEER;
-import mod.leer.entities.Meteorite;
+import mod.leer.entities.EntityUfo;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -37,15 +37,16 @@ public class ItemTester extends Item{
 		double posz = playerIn.getPosition().getZ();
 		Vec3d vector = playerIn.getLookVec();
 
-		worldIn.spawnEntity(new Meteorite(worldIn,
+		worldIn.spawnEntity(new EntityUfo(worldIn,
+		//User
+		playerIn,
 		//X-Koordinate
 		posx+vector.x,
 		//Y-Koordinate
 		posy+vector.y,
 		//Z-Koordinate
-		posz+vector.z,
-		//Richtung
-		vector.x*2,vector.y*2,vector.z*2));}
+		posz+vector.z));
+		}
 		return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
 	

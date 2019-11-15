@@ -11,10 +11,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class Sprites {
 	
 	public static TextureAtlasSprite meteorite;
+	public static TextureAtlasSprite ufo;
 	public static TextureAtlasSprite pipe;
 	
 	public static void register(TextureStitchEvent.Pre event){
         meteorite = event.getMap().registerSprite(new ResourceLocation(LEER.MODID+":entity/meteoriteprojectile"));
+        ufo = event.getMap().registerSprite(new ResourceLocation(LEER.MODID+":entity/ufo"));
         pipe = event.getMap().registerSprite(new ResourceLocation(LEER.MODID+":blocks/voidcom(pipe)"));
     }
 	

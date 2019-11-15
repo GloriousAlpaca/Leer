@@ -17,8 +17,16 @@ public class InitEntities {
 				.name("meteorite")
 				.tracker(100,2,false)
 				.build();
+		//Meteorite
+				EntityEntry ufo = EntityEntryBuilder.create()
+						.entity(EntityUfo.class)
+						.id(new ResourceLocation(LEER.MODID, "ufo"), ID)
+						.name("ufo")
+						.tracker(10,2,true)
+						.build();
 		event.getRegistry().registerAll(
-				meteorite
+				meteorite,
+				ufo
 				);
 	}
 	

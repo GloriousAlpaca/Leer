@@ -1,7 +1,7 @@
 package mod.leer.renderer;
 
 import mod.leer.LEER;
-import mod.leer.entities.Meteorite;
+import mod.leer.entities.EntityUfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -11,23 +11,23 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderMeteorite extends Render<Meteorite>{
-	
-	protected ResourceLocation meteoriteTexture;
+public class RenderUfo extends Render<EntityUfo>{
+
+	protected ResourceLocation ufoTexture;
 	private final float scale;
 	
-	public RenderMeteorite(RenderManager renderManager,float scaleIn) {
+	public RenderUfo(RenderManager renderManager,float scaleIn) {
 		super(renderManager);
 		this.scale = scaleIn;
 	}
 
 	protected void setEntityTexture()
     {
-        meteoriteTexture = new ResourceLocation(LEER.MODID+":textures/entity/meteoriteprojectile.png");
+        ufoTexture = new ResourceLocation(LEER.MODID+":textures/entity/ufo.png");
     }
 
 
-    public void doRender(Meteorite entity, double x, double y, double z, float entityYaw, float partialTicks)
+    public void doRender(EntityUfo entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
         GlStateManager.pushMatrix();
         this.bindEntityTexture(entity);
@@ -72,8 +72,8 @@ public class RenderMeteorite extends Render<Meteorite>{
     }
     
 	@Override
-	protected ResourceLocation getEntityTexture(Meteorite entity) {
-		return meteoriteTexture;
+	protected ResourceLocation getEntityTexture(EntityUfo entity) {
+		return ufoTexture;
 	}
 
 }
