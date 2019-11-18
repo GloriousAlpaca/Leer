@@ -1,13 +1,8 @@
 package mod.leer.item;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import mod.leer.LEER;
 import mod.leer.entities.EntityUfo;
 import mod.leer.entities.Meteorite;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,16 +12,15 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class ItemTester extends Item{
-	public ItemTester() {
-		setUnlocalizedName("leer.tester");
-		setRegistryName("tester");
+public class ItemUfo extends Item{
+	public ItemUfo() {
+		setUnlocalizedName("leer.itemufo");
+		setRegistryName("itemufo");
 		setCreativeTab(LEER.CT);
 	}
 	
-	
 	public void registerItemModel() {
-		LEER.proxy.registerItemRenderer(this, 0, "tester");
+		LEER.proxy.registerItemRenderer(this, 0, "itemufo");
 	}
 	
 	@Override
@@ -38,8 +32,6 @@ public class ItemTester extends Item{
 		double posz = playerIn.getPosition().getZ();
 		Vec3d vector = playerIn.getLookVec();
 
-		if(!playerIn.isSneaking()) {
-			System.out.println("HALLO");
 		worldIn.spawnEntity(new EntityUfo(worldIn,
 		//User
 		playerIn,
@@ -50,20 +42,7 @@ public class ItemTester extends Item{
 		//Z-Koordinate
 		posz+vector.z*2.));
 		}
-		else{
-			worldIn.spawnEntity(new Meteorite(worldIn,
-					playerIn.getLookVec().x,
-					playerIn.getLookVec().y,
-					playerIn.getLookVec().z,
-					//X-Koordinate
-					posx+vector.x,
-					//Y-Koordinate
-					posy+vector.y,
-					//Z-Koordinate
-					posz+vector.z));
-		}
-		}
+		
 		return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
-	
 }

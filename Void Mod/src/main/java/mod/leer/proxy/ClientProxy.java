@@ -2,8 +2,10 @@ package mod.leer.proxy;
 
 
 import mod.leer.LEER;
+import mod.leer.entities.EntityUfo;
 import mod.leer.entities.Meteorite;
 import mod.leer.renderer.RenderMeteorite;
+import mod.leer.renderer.RenderUfo;
 import mod.leer.renderer.RenderVoidcom;
 import mod.leer.renderer.Sprites;
 import mod.leer.tileentities.TileEntityVoidcom;
@@ -31,6 +33,12 @@ public class ClientProxy implements IProxy{
 			@Override
 			public Render<? super Meteorite> createRenderFor(RenderManager manager){
 				return new RenderMeteorite(manager,1);
+			}
+		});
+		RenderingRegistry.registerEntityRenderingHandler(EntityUfo.class, new IRenderFactory<EntityUfo>() {
+			@Override
+			public Render<? super EntityUfo> createRenderFor(RenderManager manager){
+				return new RenderUfo(manager,1);
 			}
 		});
 	}

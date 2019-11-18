@@ -18,6 +18,7 @@ import mod.leer.item.ItemHolder;
 import mod.leer.item.ItemObsidianShard;
 import mod.leer.item.ItemTester;
 import mod.leer.item.ItemTrap;
+import mod.leer.item.ItemUfo;
 import mod.leer.network.PacketHandler;
 import mod.leer.proxy.IProxy;
 import mod.leer.tileentities.InitTileEntities;
@@ -122,7 +123,9 @@ public class LEER {
 			ItemObsidianShard obsidianshard = new ItemObsidianShard();
 			ItemTrap trap = new ItemTrap();
 			ItemTester tester = new ItemTester();
+			ItemUfo itemufo = new ItemUfo();
 			event.getRegistry().registerAll(
+					itemufo,
 					obsidianshard,
 					trap,
 					tester
@@ -157,6 +160,8 @@ public class LEER {
 			ItemObsidianShard obsidianshard = ItemHolder.obsidianshard;
 			ItemTrap trap = ItemHolder.trap;
 			ItemTester tester = ItemHolder.tester;
+			ItemUfo itemufo = ItemHolder.itemufo;
+			itemufo.registerItemModel();
 			obsidianshard.registerItemModel();
 			trap.registerItemModel();
 			tester.registerItemModel();

@@ -4,12 +4,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityUfo extends Entity{
 	public EntityPlayer user;
+	float clock=0;
 	
 	public EntityUfo(World worldIn)
     {
@@ -31,7 +33,18 @@ public class EntityUfo extends Entity{
      */
     public void onUpdate()
     {
-    
+    	if(!world.isRemote) {
+    	this.setLocationAndAngles(
+    			Math.sin(2*Math.PI*clock)+this.user.getPositionVector().x,
+    			this.user.getDefaultEyeHeight()+this.user.getPositionVector().y,
+    			Math.cos(2*Math.PI*clock)+this.user.getPositionVector().z,
+    			this.rotationYaw, this.rotationPitch);
+    	if(clock==1.) {
+    		clock=0;}
+    	else {
+    		clock+=0.01;
+    	}
+    	}
     }
     
 	@Override
@@ -59,7 +72,16 @@ public class EntityUfo extends Entity{
     {
         return true;
     }
-
+    
+    /**
+     * Called when the entity is attacked.
+     */
+    public boolean attackEntityFrom(DamageSource source, float amount)
+    {
+    	this.setDead();
+       return true;
+    }
+    
     public float getCollisionBorderSize()
     {
         return 1.0F;

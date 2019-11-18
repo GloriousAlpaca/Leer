@@ -34,7 +34,7 @@ public class RenderUfo extends Render<EntityUfo>{
         GlStateManager.translate((float)x, (float)y, (float)z);
         GlStateManager.enableRescaleNormal();
         GlStateManager.scale(this.scale, this.scale, this.scale);
-        TextureAtlasSprite textureatlassprite = Sprites.meteorite;
+        TextureAtlasSprite textureatlassprite = Sprites.ufo;
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         float f = textureatlassprite.getMinU();

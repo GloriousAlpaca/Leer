@@ -15,5 +15,7 @@ public class ItemHolder {
 	@GameRegistry.ObjectHolder("tester")
 	public static final ItemTester tester = null;
 	
+	@GameRegistry.ObjectHolder("itemufo")
+	public static final ItemUfo itemufo = null;
 	
 }

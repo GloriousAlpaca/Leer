@@ -1,8 +1,5 @@
 package mod.leer.network;
 
-import java.lang.reflect.Field;
-
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.server.SPacketParticles;
